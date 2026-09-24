@@ -9,7 +9,7 @@ type Job={id:string;case_id:string;kind:string;stage:string;status:string;error?
 type Rating={scores:Record<string,number>;verdict:string;notes:string;failure_reason:string};
 type Candidate={model:string;id:string;label:string;job_id:string;created:number;duration:number;asr_text:string;check_error:string;settings:Settings;seed:number;elapsed_seconds:number;rating:Rating|null;background_extended:boolean;shift_seconds:number;gain_limited:boolean;replacement_duration?:number|null};
 const scoreNames=[['pronunciation','發音'],['similarity','音色'],['prosody','語氣'],['quality','音質'],['background','背景銜接']];
-async function api<T>(path:string,options:RequestInit={}):Promise<T>{const r=await fetch('/api'+path,options);if(!r.ok){let msg='連線失敗，請確認本機服務仍在執行。';try{const e=await r.json();msg=typeof e.detail==='string'?e.detail:'資料格式不正確，請檢查輸入。'}catch{}throw new Error(msg)}return r.json()}
+async function api<T>(path:string,options:RequestInit={}):Promise<T>{let r:Response;try{r=await fetch('/api'+path,options)}catch{throw new Error('無法連線到本機語音服務。請雙擊「開啟語音修補室.command」重新啟動，再重新整理網頁。')}if(!r.ok){let msg='連線失敗，請確認本機服務仍在執行。';try{const e=await r.json();msg=typeof e.detail==='string'?e.detail:'資料格式不正確，請檢查輸入。'}catch{}throw new Error(msg)}return r.json()}
 const json=(v:unknown)=>({headers:{'Content-Type':'application/json'},body:JSON.stringify(v)});
 const time=(n:number)=>`${Math.floor(n/60)}:${(n%60).toFixed(2).padStart(5,'0')}`;
 function Waveform({asset,s,active,onSelect,current}:{asset:Asset;s:Settings;active:'ref'|'target';onSelect:(a:number,b:number)=>void;current:number}){
