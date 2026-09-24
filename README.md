@@ -29,7 +29,7 @@ bash install.sh
 bash start.sh
 ```
 
-Mac 也可雙擊 `啟動語音修補室.command`。終端機保持開啟；Control-C 停止。安裝失敗可重跑 `install.sh`。
+Mac 也可雙擊 `啟動語音修補室.command`。若服務已啟動，再雙擊會直接打開網頁；首次啟動時請讓終端機保持開啟，Control-C 可停止。安裝失敗可重跑 `install.sh`。
 
 ### Windows PowerShell
 
