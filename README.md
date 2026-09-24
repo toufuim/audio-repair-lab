@@ -86,6 +86,7 @@ Qwen Base 目前這個整合沒有精確秒數控制：
 ```sh
 npm --prefix frontend ci
 npm --prefix frontend run build
+npm --prefix frontend test
 python -m pip install -r requirements-test.txt
 python -m pytest -q
 ```
